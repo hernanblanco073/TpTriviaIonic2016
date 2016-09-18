@@ -1,0 +1,20 @@
+<ion-view view-title="Trivia">
+  <ion-content>
+  	<div class="row">
+  		
+  		  <span style="color:Black;font-weight:bold;font-size: 16pt">{{actual.pregunta}} </span>
+
+	</div>
+  	<div class="row">
+  		<button class="button button-block button-calm" ng-click="Contestar(1)">
+  		  <span style="color:Black;font-weight:bold;font-size: 10pt">{{actual.respuesta1}}</span>
+  		</button>
+  		<button class="button button-block button-calm" ng-click="Contestar(2)">
+  		  <span style="color:Black;font-weight:bold;font-size: 10pt">{{actual.respuesta2}}</span>
+  		</button>
+  		<button class="button button-block button-calm" ng-click="Contestar(3)">
+  		  <span style="color:Black;font-weight:bold;font-size: 10pt">{{actual.respuesta3}}</span>
+  		</button>
+  	</div>
+  </ion-content>
+</ion-view>

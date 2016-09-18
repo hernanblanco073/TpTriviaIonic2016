@@ -1,47 +1,52 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
+.factory('Preguntas', function($http) {
+  
+  var preguntas = [{
+  "id": 1,
+  "pregunta": "¿Quien es el actual campeon del peso pesado de UFC?",
+  "respuesta1": "Stipe Miočić",
+  "respuesta2": "Fabricio Werdum",
+  "respuesta3": "Cain Velazquez",
+  "correcta": 1
+}, {
+  "id": 2,
+  "pregunta": "¿Quien fue el cantante de Hermetica?",
+  "respuesta1": "Ricardo Iorio",
+  "respuesta2": "El tano Romano",
+  "respuesta3": "Claudio OConnor",
+  "correcta": 3
+}, {
+  "id": 3,
+  "pregunta": "¿En que años tocaron juntos en Argentina Ozzy Osbourne y Korn?",
+  "respuesta1": "2008",
+  "respuesta2": "2007",
+  "respuesta3": "2011",
+  "correcta": 1
+}, {
+  "id": 4,
+  "pregunta": "¿Quien gano la lucha entre Anderson Silva y Chris Weidman en el UFC 162?",
+  "respuesta1": "Anderson Silva",
+  "respuesta2": "Chris Weidman",
+  "respuesta3": "Empate",
+  "correcta": 2
+}, {
+  "id": 5,
+  "pregunta": "¿Que equipo gano la Libertadores 2008?",
+  "respuesta1": "Fluminense",
+  "respuesta2": "Liga de Quito",
+  "respuesta3": "Boca",
+  "correcta": 2
+}];
 
   return {
     all: function() {
-      return chats;
+         return preguntas;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    get: function(preungtaId) {
+      for (var i = 0; i < preguntas.length; i++) {
+        if (preguntas[i].id === parseInt(preungtaId)) {
+          return preguntas[i];
         }
       }
       return null;
