@@ -42,6 +42,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   .state('tab.login', {
     url: '/login',
+    cache: false,
     views: {
       'tab-login': {
         templateUrl: 'templates/tab-login.html',
@@ -53,6 +54,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   .state('tab.trivia', {
     url: '/trivia',
+    cache: false,
     params: {nombre: null},
     views: {
       'tab-trivia': {
@@ -64,6 +66,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   .state('tab.about', {
     url: '/about',
+    cache: false,
     views: {
       'tab-about': {
         templateUrl: 'templates/tab-about.html',
@@ -74,6 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   .state('tab.resultados', {
     url: '/resultados',
+    cache: false,
     views: {
       'tab-resultados': {
         templateUrl: 'templates/tab-respuestas.html',

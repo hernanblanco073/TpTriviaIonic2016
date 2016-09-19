@@ -1,21 +1,40 @@
 angular.module('starter.controllers', ['ngCordova'])
 
 
-.controller('controlTrivia', function($scope, $state, $stateParams, $cordovaVibration, $cordovaNativeAudio, $ionicPlatform, $cordovaFile, Preguntas) {
+.controller('controlTrivia', function($scope, $state, $stateParams, $cordovaVibration, $cordovaNativeAudio, $ionicPlatform, $ionicPopup, $cordovaFile, Preguntas) {
 
   try
   {
-
   //var VariableFirebase = new Firebase('https://chathernan.firebaseio.com/Trivia/');
-  $state.transitionTo($state.current, $stateParams, { 
-  reload: true, inherit: false, notify: true
-  });
   $scope.usuario = $stateParams.nombre;
   $scope.Juego = Preguntas.all();
   $scope.Juego.usuario = $scope.usuario;
   $scope.actual = Preguntas.get(1);
   $scope.correctas = 0;
   var i = 1;
+  var resultado = "";
+
+
+  $scope.AlertResultado = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Resultado',
+     template: resultado
+   });
+  }
+
+  $scope.AlertCorrecta = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'BIEN!!!',
+     template: "Respuesta correta !! :)"
+   });
+  }
+
+  $scope.AlertIncorrecta = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'MAL!!!',
+     template: "Respuesta Incorrecta :("
+   });
+  }
 
   $ionicPlatform.ready(function() {
 
@@ -26,7 +45,7 @@ angular.module('starter.controllers', ['ngCordova'])
            console.log(msg);
          }, function (error) 
            {
-             alert(error);
+
            }
            );
 
@@ -37,7 +56,7 @@ angular.module('starter.controllers', ['ngCordova'])
            console.log(msg);
          }, function (error) 
            {
-             alert(error);
+
            }
            );
 
@@ -51,14 +70,14 @@ angular.module('starter.controllers', ['ngCordova'])
       $scope.correctas++;
       $cordovaVibration.vibrate(1000);
       $cordovaNativeAudio.play('Correcto');
-      alert("Respuesta correta !! :)");
+      $scope.AlertCorrecta();
 
     }
     else
     {
       $cordovaNativeAudio.play('Incorrecto');
       $cordovaVibration.vibrate([500,100,500]);
-      alert("Respuesta Incorrecta :(");
+      $scope.AlertIncorrecta();
     }
 
     i++;
@@ -69,22 +88,19 @@ angular.module('starter.controllers', ['ngCordova'])
     }
     else
     {
-      var resultado = "Usted acerto ".concat($scope.correctas," de 5 preguntas");
+      resultado = "Usted acerto ".concat($scope.correctas," de 5 preguntas, para ver sus resultados pulse en el Boton Resultados del menu");
       $scope.Juego.Puntaje = $scope.correctas;
       $scope.Juego.Fecha = Date.now();
       //VariableFirebase.push($scope.Juego);
-      alert(resultado);
-      alert($scope.Juego.toString());
+      $scope.AlertResultado();
 
 
       $cordovaFile.checkDir(cordova.file.externalApplicationStorageDirectory, "trivia")
       .then(function (success) {
           $cordovaFile.writeFile(cordova.file.externalApplicationStorageDirectory, "trivia/respuestas.txt", $scope.Juego, true)
                .then(function (success) {
-                          alert("escribio");
            
                  }, function (error) {
-                        alert("fallo escribir");
                         alert(error.toString());
                   });
 
@@ -93,7 +109,6 @@ angular.module('starter.controllers', ['ngCordova'])
             .then(function (success) {
               $cordovaFile.writeFile(cordova.file.externalApplicationStorageDirectory, "trivia/respuestas.txt", $scope.Juego, true)
                .then(function (success) {
-                          alert("escribio");
            
                  }, function (error) {
                         alert("fallo escribir 2");
@@ -111,11 +126,12 @@ angular.module('starter.controllers', ['ngCordova'])
       $scope.actual = Preguntas.get(i);
       $scope.correctas = 0;
 
-      $state.go('tab.resultados', {reload: true});
+      //$state.go('tab.resultados');
     }
   }
 
   }
+  
   catch(error)
   {
     alert("catch");
@@ -125,16 +141,14 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 
-.controller('controlAbout', function($scope) {
+.controller('controlAbout', function($scope, $state) {
 
 })
 
 
 .controller('controlResultados', function($scope, $cordovaFile, $state, $stateParams) {
 
-  $state.transitionTo($state.current, $stateParams, { 
-  reload: true, inherit: false, notify: true
-  });
+
    $cordovaFile.readAsText(cordova.file.externalApplicationStorageDirectory, "trivia/respuestas.txt")
          .then(function (success) {
              try
