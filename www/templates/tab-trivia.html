@@ -1,11 +1,9 @@
 <ion-view view-title="Trivia">
   <ion-content>
-  	<div class="row">
-  		
-  		  <span style="color:Black;font-weight:bold;font-size: 16pt">{{actual.pregunta}} </span>
-
+  	<div class="row" ng-show="usuario != null">
+  		<span style="color:Black;font-weight:bold;font-size: 16pt" >{{actual.pregunta}} </span>
 	</div>
-  	<div class="row">
+  	<div class="row" ng-show="usuario != null">
   		<button class="button button-block button-calm" ng-click="Contestar(1)">
   		  <span style="color:Black;font-weight:bold;font-size: 10pt">{{actual.respuesta1}}</span>
   		</button>
@@ -16,5 +14,8 @@
   		  <span style="color:Black;font-weight:bold;font-size: 10pt">{{actual.respuesta3}}</span>
   		</button>
   	</div>
+  	<div class="row" ng-show="usuario == null">
+  		<span style="color:Black;font-weight:bold;font-size: 18pt" >Por favor, logee ingresando su nombre para poder jugar </span>
+	</div>
   </ion-content>
 </ion-view>

@@ -1,28 +1,50 @@
 angular.module('starter.controllers', ['ngCordova'])
 
 
-.controller('controlTrivia', function($scope, $state, $stateParams, $cordovaVibration, Preguntas) {
+.controller('controlTrivia', function($scope, $state, $stateParams, $cordovaVibration, $cordovaNativeAudio, $ionicPlatform, Preguntas) {
 
-
+  console.log($stateParams.nombre);
+  $scope.usuario = $stateParams.nombre;
   $scope.Preguntas = Preguntas.all();
   $scope.actual = Preguntas.get(1);
-  $scope.usuario = $stateParams.name;
   $scope.correctas = 0;
   var i = 1;
 
-  console.log($scope.actual);
+  $cordovaNativeAudio
+     .preloadSimple('Correcto', 'sounds/correcto.mp3')
+     .then(function (msg) 
+         {
+           console.log(msg);
+         }, function (error) 
+           {
+             //alert(error);
+           }
+           );
+
+  $cordovaNativeAudio
+     .preloadSimple('Incorrecto', 'sounds/incorrecto.mp3')
+     .then(function (msg) 
+         {
+           console.log(msg);
+         }, function (error) 
+           {
+             //alert(error);
+           }
+           );
 
   $scope.Contestar = function(idResp){
 
     if($scope.actual.correcta === idResp)
     {
       $scope.correctas++;
-      //$cordovaVibration.vibrate(1000);
+      $cordovaVibration.vibrate(1000);
+      $cordovaNativeAudio.play('Correcto');
       alert("Respuesta correta !! :)");
     }
     else
     {
-      //$cordovaVibration.vibrate([500,100,500]);
+      $cordovaNativeAudio.play('Incorrecto');
+      $cordovaVibration.vibrate([500,100,500]);
       alert("Respuesta Incorrecta :(");
     }
 
@@ -41,12 +63,17 @@ angular.module('starter.controllers', ['ngCordova'])
       $scope.correctas = 0;
     }
   }
+
+  $ionicPlatform.registerBackButtonAction(function(){
+    alert("chau");
+  },100);
+
   })
 
 
 .controller('controlAbout', function($scope, $window) {
   
-  console.log($window.name);
+  
 })
 
 
@@ -56,7 +83,7 @@ angular.module('starter.controllers', ['ngCordova'])
     {
       var Nombre = document.getElementById("txtNombre").value;
 
-      $state.go('tab.trivia'/*, {nombre: Nombre}*/);
+      $state.go('tab.trivia', {nombre: Nombre});
     }
   };
   
