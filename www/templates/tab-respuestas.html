@@ -1,0 +1,14 @@
+<ion-view view-title="Resultados">
+  <ion-content>
+    <!--<div class="list card" ng-repeat="mensaje in MisMensajes">
+      <strong>{{mensaje.usuario}}</strong>
+    </div>-->
+
+    <ion-list>
+      <ion-item ng-repeat="item in listado" >
+        <h4>Pregunta: {{item.pregunta}}</h4>
+        <h5>Respuesta: {{item.eligio}}</h5>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -70,6 +70,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'controlAbout'
       }
     }
+  })
+
+  .state('tab.resultados', {
+    url: '/resultados',
+    views: {
+      'tab-resultados': {
+        templateUrl: 'templates/tab-respuestas.html',
+        controller: 'controlResultados'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
