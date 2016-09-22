@@ -168,13 +168,29 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 
-.controller('controlLogin', function($scope, $state) {
+.controller('controlLogin', function($scope, $state, $ionicPopup) {
 
-  $scope.Logear = function(){
+  $scope.Nombre;
+
+
+  $scope.Logear = function(Nombre){
     {
-      var Nombre = document.getElementById("txtNombre").value;
-
-      $state.go('tab.trivia', {nombre: Nombre});
+      if(Nombre == "" || Nombre == null)
+      {
+        $ionicPopup.alert({
+          title: 'Error',
+          template: "Debe ingresar su nombre"
+          });
+      }
+      else
+      {
+        $ionicPopup.alert({
+          title: 'Bienvenido',
+          template: "Bienvenido ".concat(Nombre)
+          });
+        $state.go('tab.trivia',{nombre: Nombre});
+      }
+      
     }
   };
   
